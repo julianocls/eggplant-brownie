@@ -16,7 +16,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // MARK: - Attributes
     
     var delegate: AdicionaRefeicaoDelegate?
-    let ingredientes = ["Mulho Sugo", "Molho Quatro Queijos", "Molho Vermelho", "Tempero", "Oregano", "Pimenta Calabresa", "Ameixa Seca", "Tomate Seco", "Bacon", "Mussarela", "Azeitona", "Palmito", "Presunto", "Calabresa", "Queijo Ralado"]
+    /*let ingredientes = ["Mulho Sugo", "Molho Quatro Queijos", "Molho Vermelho", "Tempero", "Oregano", "Pimenta Calabresa", "Ameixa Seca", "Tomate Seco", "Bacon", "Mussarela", "Azeitona", "Palmito", "Presunto", "Calabresa", "Queijo Ralado"]*/
+    var itens: [Item] = [
+        Item(nome: "Molho Vermelho", calorias: 40.00),
+        Item(nome: "Molho Branco", calorias: 40.00),
+        Item(nome: "Molho 4 Queijos", calorias: 40.00),
+        Item(nome: "Molho Apimentado", calorias: 40.00)
+    ]
+    
+    var itensSelecionados: [Item] = []
     
     // MARK: - IBOutlet
     
@@ -26,13 +34,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // MARK: - Actions
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ingredientes.count
+        return itens.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let celula = UITableViewCell(style: .default, reuseIdentifier: nil)
-        let ingrediente = ingredientes[indexPath.row]
-        celula.textLabel?.text = ingrediente
+        let ingrediente = itens[indexPath.row]
+        celula.textLabel?.text = ingrediente.nome
         return celula
     }
     
@@ -40,26 +48,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let celula = tableView.cellForRow(at: indexPath) else { return }
         
+        let item = itens[indexPath.row]
         if celula.accessoryType == .none {
             celula.accessoryType = .checkmark
+            itensSelecionados.append(item)
         } else {
             celula.accessoryType = .none
+            if let position = itensSelecionados.firstIndex(of: item) {
+                itensSelecionados.remove(at: position)
+            }
         }
-            
+        for item in itensSelecionados {
+            print(item.nome)
+        }
+        print("--------------")
     }
     
     
     @IBAction func adicionar(_ sender: Any) {
-
-        /*if let nomeDaRefeicao = nomeTextField?.text, let felicidadeDaRefeicao = felicidadeTextField?.text {
-            let nome = nomeDaRefeicao
-            if let felicidade = Int(felicidadeDaRefeicao) {
-                print("Comi \(nome) e fiquei com felicidade \(felicidade)")
-                let refeicao = Refeicao(nome: nome, felicidade: felicidade)
-            } else {
-                print("Erro ao criar refeicao")
-            }
-        }*/
         
         guard let nome = nomeTextField?.text else {
             return
@@ -71,7 +77,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
 
         print("Comi \(nome) e fiquei com felicidade \(felicidade)")
-        let refeicao = Refeicao(nome: nome, felicidade: felicidade)
+        let refeicao = Refeicao(nome: nome, felicidade: felicidade, itens: itensSelecionados)
         
         delegate?.add(refeicao)
         
