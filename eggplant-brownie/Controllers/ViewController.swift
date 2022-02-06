@@ -31,6 +31,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet var nomeTextField: UITextField?
     @IBOutlet weak var felicidadeTextField: UITextField?
     
+    // MARK: - View Life Cycle
+    
+    override func viewDidLoad() {
+        let botaoAdicionar = UIBarButtonItem(
+            title: "Adicionar",
+            style: .plain,
+            target: self,
+            action: #selector(adicionarItem)
+        )
+        navigationItem.rightBarButtonItem = botaoAdicionar
+    }
+    
+    @objc func adicionarItem() {
+        let adicionarItensViewController = AdicionarItensViewController()
+        navigationController?.pushViewController(adicionarItensViewController, animated: true)        
+    }
+    
     // MARK: - Actions
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,10 +75,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 itensSelecionados.remove(at: position)
             }
         }
-        for item in itensSelecionados {
-            print(item.nome)
-        }
-        print("--------------")
+        /*for item in itensSelecionados { print(item.nome) }*/
     }
     
     
