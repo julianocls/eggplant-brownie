@@ -15,6 +15,8 @@
 		610E65D4279D13B9002C0919 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 610E65D2279D13B9002C0919 /* LaunchScreen.storyboard */; };
 		61478A5227A7784500E1B1CB /* Refeicao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61478A5127A7784500E1B1CB /* Refeicao.swift */; };
 		61478A5427A7785800E1B1CB /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61478A5327A7785800E1B1CB /* Item.swift */; };
+		614994B627E3D734005F41F3 /* RemoverRefeicaoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614994B527E3D734005F41F3 /* RemoverRefeicaoViewController.swift */; };
+		618C9E2927D30C9600CEEFCB /* Alerta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618C9E2827D30C9600CEEFCB /* Alerta.swift */; };
 		61A6428727AF781E00264BF5 /* AdicionarItensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A6428527AF781E00264BF5 /* AdicionarItensViewController.swift */; };
 		61A6428827AF781E00264BF5 /* AdicionarItensViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61A6428627AF781E00264BF5 /* AdicionarItensViewController.xib */; };
 		61DEEE5C27AA3115009145D8 /* RefeicoesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DEEE5B27AA3115009145D8 /* RefeicoesTableViewController.swift */; };
@@ -31,7 +33,9 @@
 		610E65D5279D13B9002C0919 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61478A5127A7784500E1B1CB /* Refeicao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Refeicao.swift; sourceTree = "<group>"; };
 		61478A5327A7785800E1B1CB /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		614994B527E3D734005F41F3 /* RemoverRefeicaoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoverRefeicaoViewController.swift; sourceTree = "<group>"; };
 		61510EFF279F8C1C006DA627 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		618C9E2827D30C9600CEEFCB /* Alerta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerta.swift; sourceTree = "<group>"; };
 		61A6428527AF781E00264BF5 /* AdicionarItensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarItensViewController.swift; sourceTree = "<group>"; };
 		61A6428627AF781E00264BF5 /* AdicionarItensViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdicionarItensViewController.xib; sourceTree = "<group>"; };
 		61DEEE5B27AA3115009145D8 /* RefeicoesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefeicoesTableViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +89,7 @@
 			children = (
 				61478A5127A7784500E1B1CB /* Refeicao.swift */,
 				61478A5327A7785800E1B1CB /* Item.swift */,
+				618C9E2827D30C9600CEEFCB /* Alerta.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -104,6 +109,7 @@
 				61A6428527AF781E00264BF5 /* AdicionarItensViewController.swift */,
 				610E65CB279D13B7002C0919 /* ViewController.swift */,
 				61DEEE5B27AA3115009145D8 /* RefeicoesTableViewController.swift */,
+				614994B527E3D734005F41F3 /* RemoverRefeicaoViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -180,6 +186,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				618C9E2927D30C9600CEEFCB /* Alerta.swift in Sources */,
 				61478A5427A7785800E1B1CB /* Item.swift in Sources */,
 				610E65CC279D13B7002C0919 /* ViewController.swift in Sources */,
 				61A6428727AF781E00264BF5 /* AdicionarItensViewController.swift in Sources */,
@@ -187,6 +194,7 @@
 				610E65C8279D13B7002C0919 /* AppDelegate.swift in Sources */,
 				610E65CA279D13B7002C0919 /* SceneDelegate.swift in Sources */,
 				61478A5227A7784500E1B1CB /* Refeicao.swift in Sources */,
+				614994B627E3D734005F41F3 /* RemoverRefeicaoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

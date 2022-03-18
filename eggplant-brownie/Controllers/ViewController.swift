@@ -58,12 +58,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if let tableView = itensTableView {
             tableView.reloadData()
         } else {
-            let alert = UIAlertController(title: "Desculpe!", message: "Não foi possível atualizar a tabela!", preferredStyle: .alert)
-            let ok = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-            alert.addAction(ok)
-            present(alert, animated: true, completion: nil)
+            Alerta(controller: self).exibe(mensagem: "Não foi possível atualizar a tabela!")
+        }
+        
+        do {
+            let dados = try NSKeyedArchiver.archivedData(withRootObject: itens, requiringSecureCoding: false)
+            guard let caminho = recuperaDiretorio() else { return }
+            try dados.write(to: caminho)
+        } catch {
+            print(error.localizedDescription)
         }
     }
+    
+    func recuperaDiretorio() -> URL? {
+        guard let diretorio = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil }
+        let caminho = diretorio.appendingPathComponent("itens")
+        return caminho
+    }
+    
     
     // MARK: - Actions
     
@@ -96,23 +108,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    @IBAction func adicionar(_ sender: Any) {
-        
-        guard let nome = nomeTextField?.text else {
-            return
-        }
-        
-        guard let felicidadeDaRefeicao = felicidadeTextField?.text, let felicidade = Int(felicidadeDaRefeicao) else {
-            print("Deu ruim ao tentar criar refeicao por causa do campo felicidade")
-            return
-        }
-
-        print("Comi \(nome) e fiquei com felicidade \(felicidade)")
+    func recuperaRefeicaoDoFormulario() -> Refeicao? {
+        guard let nome = nomeTextField?.text else { return nil }
+        guard let felicidadeDaRefeicao = felicidadeTextField?.text, let felicidade = Int(felicidadeDaRefeicao) else { return nil }
         let refeicao = Refeicao(nome: nome, felicidade: felicidade, itens: itensSelecionados)
-        
-        delegate?.add(refeicao)
-        
-        navigationController?.popViewController(animated: true)
+        return refeicao
+    }
+    
+    // MARK: - IBActions
+    
+    @IBAction func adicionar(_ sender: Any) {
+        if let refeicao = recuperaRefeicaoDoFormulario() {
+            delegate?.add(refeicao)
+            navigationController?.popViewController(animated: true)
+        } else {
+            Alerta(controller: self).exibe(mensagem: "Erro ao ler dados do formulário")
+        }
     }
     
 }

@@ -12,6 +12,17 @@ class RefeicoesTableViewController: UITableViewController, AdicionaRefeicaoDeleg
     var refeicoes = [Refeicao(nome: "Churrasco", felicidade: 5),
                      Refeicao(nome: "X-Tudo", felicidade: 3),
                      Refeicao(nome: "Subway", felicidade: 4)]
+    
+    override func viewDidLoad() {        
+        guard let caminho = recuperaDiretorio() else { return }
+        do {
+            let dados = try Data(contentsOf: caminho)
+            guard let refeicoesSalvas = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(dados) as? Array<Refeicao> else { return }
+            refeicoes = refeicoesSalvas
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return refeicoes.count
@@ -34,18 +45,34 @@ class RefeicoesTableViewController: UITableViewController, AdicionaRefeicaoDeleg
             let celula = gesture.view as! UITableViewCell
             guard let indexPath = tableView.indexPath(for: celula) else {return}
             let refeicao = refeicoes[indexPath.row]
-                        
-            let alerta = UIAlertController(title: refeicao.nome, message: refeicao.detalhes(), preferredStyle: .alert)
-            let botaoCancelar = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-            alerta.addAction(botaoCancelar)
+
+            RemoverRefeicaoViewController(controller: self)
+                .exibe(refeicao, handler: { alert in
+                           self.refeicoes.remove(at: indexPath.row)
+                           self.tableView.reloadData()
+            })
             
-            present(alerta, animated: true, completion: nil)
         }
     }
-    
+      
     func add(_ refeicao: Refeicao) {
         refeicoes.append(refeicao)
+        
+        guard let caminho = recuperaDiretorio() else { return }
+        do {
+            let dados = try NSKeyedArchiver.archivedData(withRootObject: refeicoes, requiringSecureCoding: false)
+            try dados.write(to: caminho)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
         tableView.reloadData()
+    }
+    
+    func recuperaDiretorio() -> URL? {
+        guard let diretorio = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil }
+        let caminho = diretorio.appendingPathComponent("refeicao")
+        return caminho
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
